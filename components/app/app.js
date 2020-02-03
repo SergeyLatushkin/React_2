@@ -7,7 +7,7 @@ import ErrorButton from '../error-button';
 import './app.css';
 import PeoplePage from '../people-page';
 import ItemList from '../item-list';
-import PersonDetails from '../person-details';
+import ItemDetails from '../item-details';
 import SwapiService from '../../services/swapi-service';
 
 export default class App extends Component {
@@ -40,6 +40,7 @@ export default class App extends Component {
     return (
       <div className='stardb-app'>
         <Header />
+
         {planet}
 
         <div className='row mb2 button-row'>
