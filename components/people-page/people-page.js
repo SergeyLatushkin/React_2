@@ -5,15 +5,7 @@ import ItemDetails from '../item-details';
 import ErrorIndicator from '../error-indicator';
 import SwapiService from '../../services/swapi-service';
 import ErrorBoundary from '../error-boundary';
-
-const Row = ({ left, right }) => {
-  return (
-    <div className='row mb2'>
-      <div className='col-md-6'>{left}</div>
-      <div className='col-md-6'>{right}</div>
-    </div>
-  );
-};
+import Row from '../row';
 
 export default class PeoplePage extends Component {
   swapiService = new SwapiService();
