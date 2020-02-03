@@ -4,12 +4,7 @@ import ItemList from '../item-list';
 import PersonDetails from '../person-details';
 import ErrorIndicator from '../error-indicator';
 import SwapiService from '../../services/swapi-service';
-
-class ErrorBoundary extends Component {
-  render() {
-    return this.props.children;
-  }
-}
+import ErrorBoundary from '../error-boundary';
 
 const Row = ({ left, right }) => {
   return (
@@ -52,6 +47,10 @@ export default class PeoplePage extends Component {
 
     const itemDetails = <PersonDetails personId={this.state.selectedPerson} />;
 
-    return <Row left={itemList} right={itemDetails} />;
+    return (
+      <ErrorBoundary>
+        <Row left={itemList} right={itemDetails} />
+      </ErrorBoundary>
+    );
   }
 }
