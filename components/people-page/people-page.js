@@ -37,7 +37,7 @@ export default class PeoplePage extends Component {
       />
     );
 
-    const itemDetails = <ItemDetails personId={this.state.selectedPerson} />;
+    const itemDetails = <ItemDetails itemId={this.state.selectedPerson} />;
 
     return (
       <ErrorBoundary>

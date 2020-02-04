@@ -9,90 +9,72 @@ export default class ItemDetails extends Component {
   swapiService = new SwapiService();
 
   state = {
-    person: null,
-    selectedPerson: null,
-    loading: false
+    item: null,
+    selectedItem: null,
+    loading: false,
+    image: null
   };
 
   componentDidMount() {
-    this.updatePerson();
+    this.updateItem();
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.personId !== prevProps.personId) {
+    if (this.props.itemId !== prevProps.itemId) {
       this.setState({
         loading: true
       });
-      this.updatePerson();
+      this.updateItem();
     }
   }
 
-  updatePerson() {
-    const { personId } = this.props;
+  updateItem() {
+    const { itemId, getData, getImageUrl } = this.props;
 
-    if (!personId) {
+    if (!itemId) {
       return;
     }
 
-    this.swapiService.getPerson(personId).then(person => {
+    getData(itemId).then(item => {
       this.setState({
-        person,
-        loading: false
+        item,
+        loading: false,
+        image: getImageUrl(itemId)
       });
     });
   }
 
   render() {
-    const { person, loading } = this.state;
+    const { item, image } = this.state;
 
-    const hasNotContent =
-      !this.state.person && !loading ? (
-        <span>Select a person from a list</span>
-      ) : null;
+    if (!item) {
+      return <span>Select an item from the list </span>;
+    }
 
-    const content =
-      !loading && this.state.person ? <PersonView person={person} /> : null;
-    const spinner = loading ? <Spinner /> : null;
+    const { name, gender, birthYear, eyeColor } = item;
 
     return (
-      <div className='person-details card'>
-        {hasNotContent}
-        {spinner}
-        {content}
+      <div className='item-details card'>
+        <img className='person-image' src={image} />
+        <div className='card-body'>
+          <h4>{name}</h4>
+          <ul className='list-group list-group-flush'>
+            <li className='list-group-item'>
+              <span className='term'>Gender</span>
+              <span>{gender}</span>
+            </li>
+            <li className='list-group-item'>
+              <span className='term'>Birth Year</span>
+              <span>{birthYear}</span>
+            </li>
+            <li className='list-group-item'>
+              <span className='term'>Eye Color</span>
+              <span>{eyeColor}</span>
+            </li>
+          </ul>
+          <ErrorButton />
+        </div>
       </div>
     );
   }
 }
-
-const PersonView = person => {
-  const {
-    person: { id, name, gender, birthYear, eyeColor }
-  } = person;
-
-  return (
-    <React.Fragment>
-      <img
-        className='person-image'
-        src={`https://starwars-visualguide.com/assets/img/characters/${id}.jpg`}
-      />
-      <div className='card-body'>
-        <h4>{name}</h4>
-        <ul className='list-group list-group-flush'>
-          <li className='list-group-item'>
-            <span className='term'>Gender</span>
-            <span>{gender}</span>
-          </li>
-          <li className='list-group-item'>
-            <span className='term'>Birth Year</span>
-            <span>{birthYear}</span>
-          </li>
-          <li className='list-group-item'>
-            <span className='term'>Eye Color</span>
-            <span>{eyeColor}</span>
-          </li>
-        </ul>
-        <ErrorButton />
-      </div>
-    </React.Fragment>
-  );
-};
