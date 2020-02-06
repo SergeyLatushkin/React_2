@@ -39,20 +39,20 @@ export default class App extends Component {
     if (this.state.hasError) {
       return <ErrorIndicator />;
     }
+
     const planet = this.state.showRandomPlanet ? <RandomPlanet /> : null;
 
     return (
       <div className='stardb-app'>
         <Header />
-        {planet}
 
         <PersonDetails itemId={11} />
         <PlanetDetails itemId={5} />
         <StarshipDetails itemId={9} />
 
-        <PersonList>{({ name }) => <span>{name}</span>}</PersonList>
-        <PlanetList>{({ name }) => <span>{name}</span>}</PlanetList>
-        <StarshipList>{({ name }) => <span>{name}</span>}</StarshipList>
+        <PersonList />
+        <PlanetList />
+        <StarshipList />
       </div>
     );
   }
