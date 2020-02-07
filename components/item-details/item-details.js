@@ -20,8 +20,6 @@ export default class ItemDetails extends Component {
 
   state = {
     item: null,
-    selectedItem: null,
-    loading: false,
     image: null
   };
 
@@ -31,9 +29,6 @@ export default class ItemDetails extends Component {
 
   componentDidUpdate(prevProps) {
     if (this.props.itemId !== prevProps.itemId) {
-      this.setState({
-        loading: true
-      });
       this.updateItem();
     }
   }
@@ -48,7 +43,6 @@ export default class ItemDetails extends Component {
     getData(itemId).then(item => {
       this.setState({
         item,
-        loading: false,
         image: getImageUrl(item)
       });
     });
