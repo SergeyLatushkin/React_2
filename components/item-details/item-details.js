@@ -61,7 +61,7 @@ export default class ItemDetails extends Component {
 
     return (
       <div className='item-details card'>
-        <img className='item-image' src={image} />
+        <img alt='item' className='item-image' src={image} />
         <div className='card-body'>
           <h4>{item.name}</h4>
           <ul className='list-group list-group-flush'>
